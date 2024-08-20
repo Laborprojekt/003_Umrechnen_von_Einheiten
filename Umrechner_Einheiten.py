@@ -74,7 +74,7 @@ while True:
         "------------"
         )
     
-    
+
     unit_num = digit_num()                          #checks input if it is a single, int character
                    
     checked_inp = float(input_check())
@@ -83,24 +83,25 @@ while True:
     match unit_num:
 
         case 1 :
-            inch = checked_inp / 2.54				#inch = 2.54cm 
+            inch = round(checked_inp / 2.54, 3)			    #inch = 2.54cm 
             print(f"{checked_inp}cm are {inch} inch.")
                   
         case 2 :
-            eng_mile = checked_inp * 1.60934 		#englisch mile = 1.60934 km
-            seemile = checked_inp * 1.852			#international seemile = 1.852 km
+            eng_mile = round(checked_inp / 1.60934, 3) 		#englisch mile = 1.60934 km
+            seemile = round(checked_inp / 1.852, 3)			#international seemile = 1.852 km
             print(f"{checked_inp}km are {eng_mile} englisch miles or {seemile} international seemiles.")
                   
         case 3 :
-            beer = checked_inp * 0.33				#one beer has 330ml
-            print(f"{checked_inp} liter are {beer} beers.") 
+            beer = round(checked_inp * 0.33, 2)             #one beer has 330ml
+            complete_beer = int(beer // 1) 			
+            print(f"{checked_inp} liter are {beer} beers, roundet {complete_beer} complete 0,33l beer.") 
                   
         case 4 :
-            pound = checked_inp * 0.5				#Pound = 500g
+            pound = round(checked_inp / 0.5, 2)				#Pound = 500g
             print(f"{checked_inp}kg are {pound} pound.") 
                   
         case 5 :
-            kelvin = 273.15 + checked_inp 			#Kelvin starts at -273.15°C. 273.15 Kelvin is equal to 0°C
+            kelvin = round(273.15 + checked_inp, 2) 		#Kelvin starts at -273.15°C. 273.15 Kelvin is equal to 0°C
             print(f"{checked_inp}°C are {kelvin} Kelvin.")
 
         case 6 :
