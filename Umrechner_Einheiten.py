@@ -35,7 +35,7 @@ def input_check ():
     return user_inp
 
 
-def digit_num ():
+def digit_num ():                                   #kann auch über "match" Funktion  realisiert werden, Fehlermeldung ist aber ungenau
     list_digit = False
     menu_opt = [1,2,3,4,5,6]
     while not list_digit:
@@ -77,39 +77,39 @@ while True:
 
     unit_num = digit_num()                          #checks input if it is a single, int character
                    
-    checked_inp = float(input_check())
+    checked_inp = float(input_check())              #checks, if the input include letters    
 
 
     match unit_num:
 
         case 1 :
             inch = round(checked_inp / 2.54, 3)			    #inch = 2.54cm 
-            print(f"{checked_inp}cm are {inch} inch.")
+            print(f"\n{checked_inp}cm are {inch} inch.")
                   
         case 2 :
             eng_mile = round(checked_inp / 1.60934, 3) 		#englisch mile = 1.60934 km
             seemile = round(checked_inp / 1.852, 3)			#international seemile = 1.852 km
-            print(f"{checked_inp}km are {eng_mile} englisch miles or {seemile} international seemiles.")
+            print(f"\n{checked_inp}km are {eng_mile} englisch miles or {seemile} international seemiles.")
                   
         case 3 :
             beer = round(checked_inp * 0.33, 2)             #one beer has 330ml
             complete_beer = int(beer // 1) 			
-            print(f"{checked_inp} liter are {beer} beers, roundet {complete_beer} complete 0,33l beer.") 
+            print(f"\n{checked_inp} liter are {beer} beers, roundet {complete_beer} complete 0,33l beer.") 
                   
         case 4 :
             pound = round(checked_inp / 0.5, 2)				#Pound = 500g
-            print(f"{checked_inp}kg are {pound} pound.") 
+            print(f"\n{checked_inp}kg are {pound} pound.") 
                   
         case 5 :
             kelvin = round(273.15 + checked_inp, 2) 		#Kelvin starts at -273.15°C. 273.15 Kelvin is equal to 0°C
-            print(f"{checked_inp}°C are {kelvin} Kelvin.")
+            print(f"\n{checked_inp}°C are {kelvin} Kelvin.")
 
         case 6 :
             print("\nHave a nice day :)")
             break
             
         case _:
-            print("invalid unit number. Error in unit check function")
+            print("\ninvalid unit number. Error in unit check function")
             
     
               
