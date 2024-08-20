@@ -33,47 +33,53 @@ def input_check ():
             print("\nInput can't include letters, try again")
     return user_inp
 
-print(
-    "\nChoose unit you want do transfer:\n"
+close_script = False 
+while not close_script:
+    print(
+        "\nChoose unit you want do transfer:\n"
 
-    "------------\n" #12x -
-    "1. cm to inch \n"
-    "2. km to eng. mile / international seemile \n"
-    "3. liter to beer \n"
-    "4. kg to pound \n"
-    "5. Celsius to Kelvin \n"
-    "------------"
-    )
-unit_num = float(input("Unit number: ")) #Check, if digit and is in list 0-4
+        "------------\n" #12x -
+        "1. cm to inch \n"
+        "2. km to eng. mile / international seemile \n"
+        "3. liter to beer \n"
+        "4. kg to pound \n"
+        "5. Celsius to Kelvin \n"
+        "------------"
+        )
+    unit_num = float(input("Unit number: ")) #Check, if digit and is in list 0-4
+                      
+    checked_inp = float(input_check())
+
+
+    match unit_num:
+
+        case 1 :
+            inch = checked_inp * 2.54				#inch = cm * 2.54
+            print(f"{checked_inp}cm are {inch} inch.")
                   
-checked_inp = float(input_check())
-
-
-match unit_num:
-
-    case 1 :
-        inch = checked_inp * 2.54				#inch = cm * 2.54
-        print(f"{checked_inp}cm are {inch} inch.")
-              
-    case 2 :
-        eng_mile = checked_inp * 1.60934 		#englisch mile = km * 1.60934
-        seemile = checked_inp * 1.852			#international seemile = km * 1.852
-        print(f"{checked_inp}km are {eng_mile} englisch miles or {seemile} international seemiles.")
-              
-    case 3 :
-        beer = checked_inp * 0.33				#one beer has 330ml
-        print(f"{checked_inp} liter are {beer} beers.") 
-              
-    case 4 :
-        pound = checked_inp * 0.5				#one Pound are 500g
-        print(f"{checked_inp}kg are {pound} pound.") 
-              
-    case 5 :
-        kelvin = 273.15 + checked_inp 			#Kelvin starts at -273.15°C. 273.15 Kelvin is equal to 0°C
-        print(f"{checked_inp}°C are {kelvin} Kelvin.")
-        
-    case _:
-        print("invalid unit number")
-
+        case 2 :
+            eng_mile = checked_inp * 1.60934 		#englisch mile = km * 1.60934
+            seemile = checked_inp * 1.852			#international seemile = km * 1.852
+            print(f"{checked_inp}km are {eng_mile} englisch miles or {seemile} international seemiles.")
+                  
+        case 3 :
+            beer = checked_inp * 0.33				#one beer has 330ml
+            print(f"{checked_inp} liter are {beer} beers.") 
+                  
+        case 4 :
+            pound = checked_inp * 0.5				#one Pound are 500g
+            print(f"{checked_inp}kg are {pound} pound.") 
+                  
+        case 5 :
+            kelvin = 273.15 + checked_inp 			#Kelvin starts at -273.15°C. 273.15 Kelvin is equal to 0°C
+            print(f"{checked_inp}°C are {kelvin} Kelvin.")
+            
+        case _:
+            print("invalid unit number")
+            
+            
+    print("Would you transform another unit?")     
+    close = input("y/n: ")
+    
               
               
