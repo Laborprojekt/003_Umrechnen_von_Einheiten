@@ -8,27 +8,28 @@ Datum:			20.08.2024
 #-----------------------#
 '''
 
-'''
-def cm_inch():
-
-def km_mile():
-
-def liter_beer():
-
-def kg_pound():
-
-def celsius_kelvin():
-
 def float_check (num):
      
-     try:
-         float_num = float(num)
-         return float_num
+    try:
+        float_num = float(num)
+        return float_num
         
     except ValueError:
         return False
- '''   
-
+    
+def input_check ():
+    check = False
+    
+    while not check:
+        user_inp = float_check(input("\nInput: "))
+        
+        if user_inp:
+            float_inp = float(user_inp)
+            check = True 
+            return float_inp
+        
+        else:
+            print("\nInput can't include letters, try again")
 
 print(
     "\nChoose unit you want do transfer:\n"
@@ -41,8 +42,10 @@ print(
     "5. Celsius to Kelvin \n"
     "------------"
     )
-Unit_num = input("Unit number: ")
+Unit_num = input("Unit number: ") #Check, if digit and is in list 0-4
+                  
+checked_inp = input_check()
 
-Input = input("\nInput: ")
+
               
               
