@@ -34,12 +34,12 @@ def input_check ():
 
 def digit_num ():                                   #kann auch über "match" Funktion  realisiert werden, Fehlermeldung ist aber ungenau
     list_digit = False
-    menu_opt = [1,2,3,4,5,6]
+    menu_opt = [1,2,3,4,5,6]                        #Liste, die alle Zahlen der Menüoptionen beinhaltet
     while not list_digit:
 
         user_inp = input("Unit number: ")
         
-        if user_inp.__len__() == 1:
+        if user_inp.__len__() == 1:                 #Leitet Eingabe nur weiter, wenn sie aus max. 1 Wert besteht
 
             if user_inp.isdigit():
                 user_inp = int(user_inp)            #funktion .isdigit muss ein string sein, zum abgleich der Liste wird ein integer benötigt
@@ -72,9 +72,9 @@ while True:
         )
     
 
-    unit_num = digit_num()                          #checks input if it is a single, int character
+    unit_num = digit_num()                                  #checks input if it is a single, int character
                    
-    checked_inp = float(input_check())              #checks, if the input include letters    
+    checked_inp = float(input_check())                      #checks, if the input include letters    
 
 
     match unit_num:
