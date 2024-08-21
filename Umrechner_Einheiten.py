@@ -7,31 +7,28 @@ Programmierer: 	Eberlei
 Datum:			20.08.2024
 #-----------------------#
 '''
-
-
-def float_check (num):
-     
-    try:
-        num = float(num)	                        #versucht Input in float umzuwandeln
-        return True	                                #wenn möglich, wird der Input zurückgegeben
-        
-    except ValueError:			                    #wenn nicht möglich, wird Fehlermeldung rausgegeben
-        return False
-    
-    
+   
 def input_check ():
     check = False				                    #Variable für while Schleife wird deffiniert
     
     while not check:
         user_inp = input("\nInput: ")
-        check_return = float_check(user_inp)        #nimmt Eingabe des Users auf und kontrolliert float kompatibilität
         
+        try:
+            user_inp = float(user_inp)	            #versucht Input in float umzuwandeln
+            check_return = True	                    #wenn möglich, wird der Input zurückgegeben
+            
+        except ValueError:			                #wenn nicht möglich, wird Fehlermeldung rausgegeben
+            check_return = False
+
+
         if check_return:							#nur wenn die Umwandlung erfolgreich war, enhält user_inp einen Wert größer 0
             check = True 
-        
+            
         else:
             check = False 
             print("\nInput can't include letters, try again")
+            
     return user_inp
 
 
@@ -109,7 +106,7 @@ while True:
             break
             
         case _:
-            print("\ninvalid unit number. Error in unit check function")
+            print("\ninvalid unit number. Muste be a single character number")
             
     
               
