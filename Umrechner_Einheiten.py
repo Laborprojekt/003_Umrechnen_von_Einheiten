@@ -13,6 +13,7 @@ def input_check ():
     
     while not check:
         user_inp = input("\nInput: ")
+        user_inp = user_inp.replace("," , ".")
         
         try:
             user_inp = float(user_inp)	            #versucht Input in float umzuwandeln
@@ -73,6 +74,11 @@ while True:
     
 
     unit_num = digit_num()                                  #checks input if it is a single, int character
+
+    if unit_num == 6:
+        print("\nHave a nice day :)\n"
+              "\n-- programm closed --\n")
+        break
                    
     checked_inp = float(input_check())                      #checks, if the input include letters    
 
@@ -100,10 +106,6 @@ while True:
         case 5 :
             kelvin = round(273.15 + checked_inp, 2) 		#Kelvin starts at -273.15°C. 273.15 Kelvin is equal to 0°C
             print(f"\n{checked_inp}°C are {kelvin} Kelvin.")
-
-        case 6 :
-            print("\nHave a nice day :)")
-            break
             
         case _:
             print("\ninvalid unit number. Muste be a single character number")
