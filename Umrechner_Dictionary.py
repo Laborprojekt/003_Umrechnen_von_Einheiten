@@ -18,7 +18,7 @@ FILE = "Storage.py" # Dateiname der dict Datei
 def menu_check(menu_pos):
     check = False
     while not check:
-        us_input = input("Select function: ")
+        us_input = input("Selection: ")
 
         if len(us_input) == 1 and us_input.isdigit(): # prüfung, ob input einzelne Zahl ist
 
@@ -31,13 +31,11 @@ def menu_check(menu_pos):
             print("Error: Input must be a single integer.\n")
 
 
-def calc_check(unit_list, index):
+def input_check():
     check = False
-    unit_list = list(unit_list)
-    index = int(index)
 
     while not check:
-        us_input = input(f"Input in {unit_list[index]}: ")
+        us_input = input(f"\nInput for conversion: ")
         us_input = us_input.replace(",",".")
 
         try:
@@ -47,6 +45,7 @@ def calc_check(unit_list, index):
             print("invalid input, try again\n")
     
     return us_input
+
 
 def calculator ():
     op = operator_list[calc_index]
@@ -62,30 +61,125 @@ def calculator ():
             result = round(valid_input / float(faktor_list[calc_index]), 3)
     
     return result
-    
-    
+     
 
+def valide_operator():
+        val_op = False
+        val_op_list = ["+", "-", "*", "/"]
+
+        while not val_op:
+            op = input ("\nOperator (currently only +,-,* and / allowed): ")
+            if op in val_op_list :
+                val_op = True
+                return op
+            else:
+                print(f"{op} is not in allowed character list or to long")
+
+def add_summary(function_name, start_un, end_un, op, fac):
+    print("input summary: \n"
+            f"Function name:        {function_name}\n"
+            f"1. Start unit:        {start_un}\n"
+            f"2. End unit:          {end_un}\n"
+            f"3. Operator:          {op}\n"
+            f"4. Conversion factor: {fac}\n"
+            )
+    
 def add_unit():
-    print ("Function will be added soon\n")
+
+    ready = False
+    val_confirm = False
+    export_ready = False
+
+    while not ready:
+        
+        
+        start_un = input("\nbeginning unit:")
+
+        end_un = input("\nending unit:")
+
+        function_name = f"{start_un} to {end_un}"
+
+        op = valide_operator()
+        
+        fac = input_check()
+
+
+        while not export_ready:
+            add_summary(function_name, start_un, end_un, op, fac)
+
+                
+            confirm = input("Are the inputs correct?\n"
+                            "(y/n): ")
+            confirm = confirm.lower()
+
+            if confirm == "y":
+                export_ready = True
+                ready = True
+
+            elif confirm == "n":
+                val_corr = False
+
+                while not val_corr :
+                    correct = input("what would you like to correct: ")
+                        
+                    if len(correct) == 1 and correct.isdigit(): # prüfung, ob input einzelne Zahl ist
+                            
+                        if 0< int(correct) <= 4:
+                                
+
+                            match correct:
+
+                                case "1" :
+                                        start_un = input("beginning unit:")
+
+                                case "2" :
+                                        end_un = input("ending unit:")
+
+                                case "3" :
+                                        op = valide_operator()
+
+                                case "4" :
+                                        fac = input_check()
+
+
+                            val_corr = True
+
+                else:
+                    print("input invalid, try again\n")
+
+
+
+    new_export = f'{{"name" : "{function_name}", "start_unit" : "{start_un}", "operator": "{op}", "faktor" : "{fac}", "end_unit" : "{end_un}"}}'
+    print(new_export)
+
+    storage = open(FILE, "a")
+    storage.write(new_export)
+    storage.close()
+
+
+
 
 # --------------------------------------------------------------------------------------------------------------------
 
 # Main Schleife
 while True:
-    # Counter Variabelen
+
+    # Counter Variabelen. Müssen bei jedem run zurückgesetzt werden, sonst kommt es zu fehlen
     i = 0 # Counter Listenindex dict
     menu_count = 0 # Counter für die nummerierung der Optionen
 
-    name_list = []          #um das index rechnen zu vereinfachen könnte man einen Platzhalter auf index 0 setzen 
-    start_list = []         #um verwirrung zu vermeiden, habe ich mich dagegen entschieden
+    name_list = []          
+    start_list = []         
     operator_list = []
     faktor_list = []
     end_list = []
+
 
     # Einlesen der Speicherdatei. Muss bei jedem durchlauf erneuert werden, da sonst neue Funktionen erst nach Neustart verfügbar sind
     storage = open(FILE, "r")
     storage_list = storage.readlines()
     storage.close()
+
 
     # Schreibt alle Werte in separate Listen, für die spätere Auswertung
     for positions in storage_list:
@@ -112,6 +206,7 @@ while True:
     name_list.append("add Unit")
     name_list.append("close program")
 
+
     # genreierung Auswahlmenü des Users
     print("# ------------ #") # 12x -
     for operation in name_list: # List alle Positionen aus der Liste aus und schreibt sie in die Konsole. Auswahlmenü des Users
@@ -128,11 +223,10 @@ while True:
     print(f"You choose '{name_list[calc_index]}'")
 
     if 0<= valid_menu <= menu_count-2 :
-        valid_input = float(calc_check(start_list, calc_index))
-        #formula = f"{valid_input} {operator_list[calc_index]} {faktor_list[calc_index]}"
+        valid_input = float(input_check())
         calc = calculator()
-        result = f"{name_list[calc_index]}: {valid_input} {start_list[calc_index]} are {calc} {end_list[calc_index]}.\n" #Ausgabe: cm to inch: 20.0cm are 7.874 inch.
-        print(result)
+
+        print (f"{name_list[calc_index]}: {valid_input} {start_list[calc_index]} are {calc} {end_list[calc_index]}.\n") #Ausgabe: cm to inch: 20.0 cm are 7.874 inch.)
 
     elif valid_menu == menu_count-1 : # add Unit function 
         add_unit()
@@ -143,112 +237,3 @@ while True:
         
     else:
         print("CRITICAL SYSTEM ERROR! Menu number is invalid. Errorhandling out of service")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-'''
-def input_check ():
-    check = False				                    #Variable für while Schleife wird deffiniert
-    
-    while not check:
-        user_inp = input("\nInput: ")
-        user_inp = user_inp.replace("," , ".")
-        
-        try:
-            user_inp = float(user_inp)	            #versucht Input in float umzuwandeln
-            check_return = True	                    #wenn möglich, wird der Input zurückgegeben
-            
-        except ValueError:			                #wenn nicht möglich, wird Fehlermeldung rausgegeben
-            check_return = False
-
-
-        if check_return:							#nur wenn die Umwandlung erfolgreich war, enhält user_inp einen Wert größer 0
-            check = True 
-            
-        else:
-            check = False 
-            print("\nInput can't include letters, try again")
-            
-    return user_inp
-
-
-def digit_num ():                                   #kann auch über "match" Funktion  realisiert werden, Fehlermeldung ist aber ungenau
-    list_digit = False
-    menu_opt = [1,2,3,4,5,6]                        #Liste, die alle Zahlen der Menüoptionen beinhaltet
-    while not list_digit:
-
-        user_inp = input("Unit number: ")
-        
-        if user_inp.__len__() == 1:                 #Leitet Eingabe nur weiter, wenn sie aus max. 1 Wert besteht
-
-            if user_inp.isdigit():
-                user_inp = int(user_inp)            #funktion .isdigit muss ein string sein, zum abgleich der Liste wird ein integer benötigt
-
-                if user_inp in menu_opt:            #Durchsucht die Liste nach einer übereinstimmung
-                    list_digit = True
-                    return user_inp
-                else:
-                    print("invalid input. Must between 1-6")
-                    
-            else:
-                print("invalid input. Must be one number, without dezimal characters")
-
-        else:
-            print("invalid input. Must be only one character")
-            
-
-while True:
-    print(
-        "\nChoose unit you want do transfer:\n"
-
-        "------------\n" #12x -
-
-        "------------"
-        )
-    
-
-    unit_num = digit_num()                                  #checks input if it is a single, int character
-
-    if unit_num == 6:
-        print("\nHave a nice day :)\n"
-              "\n-- programm closed --\n")
-        break
-                   
-    checked_inp = float(input_check())                      #checks, if the input include letters    
-'''
