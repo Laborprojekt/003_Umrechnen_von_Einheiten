@@ -3,4 +3,3 @@
 {"name" : "km to international seemile",    "start_unit" : "km",        "operator": "/",    "faktor" : "1.852",     "end_unit" : "int. seemile"}
 {"name" : "liter to beer",                  "start_unit" : "beer",      "operator": "/",    "faktor" : "0.33",      "end_unit" : "beer"}
 {"name" : "celsius to kelvin",              "start_unit" : "celsius",   "operator": "+",    "faktor" : "273.15",    "end_unit" : "kelvin"}
-{"name" : "km to m", "start_unit" : "km", "operator": "/", "faktor" : "5", "end_unit" : "m"}
