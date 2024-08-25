@@ -52,7 +52,7 @@ def digit_num ():                                   #kann auch über "match" Fun
                     print("invalid input. Must between 1-6")
                     
             else:
-                print("invalid input. Must be one number, without dezimal characters")
+                print("invalid input. Must be a number, without dezimal characters")
 
         else:
             print("invalid input. Must be only one character")
@@ -95,7 +95,7 @@ while True:
             print(f"\n{checked_inp}km are {eng_mile} englisch miles or {seemile} international seemiles.")
                   
         case 3 :
-            beer = round(checked_inp * 0.33, 2)             #one beer has 330ml
+            beer = round(checked_inp / 0.33, 2)             #one beer has 330ml
             complete_beer = int(beer // 1) 			
             print(f"\n{checked_inp} liter are {beer} beers, roundet {complete_beer} complete 0,33l beer.") 
                   

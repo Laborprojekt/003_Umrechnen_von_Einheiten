@@ -1,15 +1,138 @@
 '''
 #-----------------------#
 Programm: 		Einheitenumrechner
-Version: 		V1.0
+Version: 		V2.0
 
 Programmierer: 	Eberlei
-Datum:			20.08.2024
+Datum:			25.08.2024
 #-----------------------#
 '''
-   
-from Storage.txt import*
 
+import ast
+
+#Startvariablen
+i = 0 # Counter Listenindex dict
+file = "Storage.py" # Dateiname der dict Datei
+
+name_list = []
+start_list = []
+operator_list = []
+faktor_list = []
+end_list = []
+
+
+# Funktionen
+def menu_check(menu_pos):
+    check = False
+    print (menu_pos)
+    while not check:
+        us_input = input("Select function: ")
+
+        if len(us_input) == 1 and us_input.isdigit(): # prüfung, ob input einzelne Zahl ist
+
+            if 0 <= int(us_input) <= menu_pos:
+                check = True
+                return us_input
+            else:
+                print("Error: Selection not in list") 
+        else:
+            print("Error: Input must be a single integer.")
+
+
+
+
+# Einlesen der Speicherdatei
+storage = open(file, "r")
+storage_list = storage.readlines()
+storage.close()
+
+
+# Schreibt alle Werte in separate Liste, für die spätere Auswertung
+for positions in storage_list:
+    unit = ast.literal_eval(storage_list[i])    # "ast.literal_eval" kann Strings, deren Inhalt einem dict entspricht, in Dictionarys umwandeln. Teil der inbuild python libary
+
+    name = unit["name"]
+    name_list.append (name)
+
+    start_unit = unit["start_unit"]
+    start_list.append (start_unit)
+
+    operator = unit["operator"]
+    operator_list.append (operator)
+
+    faktor = unit["faktor"]
+    faktor_list.append (faktor)
+
+    end_unit = unit["end_unit"]
+    end_list.append (end_unit)
+    
+    i +=1
+
+# Main Schleife
+while True:
+    # genreierung Auswahlmenü des Users
+    print("# ------------ #") # 12x -
+
+    menu_count = 0 # Counter für die nummerierung der Optionen
+
+    name_list.append("add Unit")
+    name_list.append("close program")
+
+    for i in name_list: # List alle Positionen aus der Liste aus und schreibt sie in die Konsole. Auswahlmenü des Users
+
+        print (f"{menu_count+1}. {name_list[menu_count]}") # menücouner -1, da der Listenindex mit 0 beginnt
+
+        menu_count += 1
+
+    print("# ------------ #\n\n")
+
+
+    # Auswahl Menüfunktion
+    valid_menu = int(menu_check(menu_count)-1)
+
+    print(f"You choose '{name_list[valid_menu - 1]}'")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''
 def input_check ():
     check = False				                    #Variable für while Schleife wird deffiniert
     
@@ -65,12 +188,7 @@ while True:
         "\nChoose unit you want do transfer:\n"
 
         "------------\n" #12x -
-        "1. cm to inch \n"
-        "2. km to eng. mile / international seemile \n"
-        "3. liter to beer \n"
-        "4. kg to pound \n"
-        "5. Celsius to Kelvin \n"
-        "6. Exit Programm \n"
+
         "------------"
         )
     
@@ -83,35 +201,4 @@ while True:
         break
                    
     checked_inp = float(input_check())                      #checks, if the input include letters    
-
-
-    match unit_num:
-
-        case 1 :
-            inch = round(checked_inp / 2.54, 3)			    #inch = 2.54cm 
-            print(f"\n{checked_inp}cm are {inch} inch.")
-                  
-        case 2 :
-            eng_mile = round(checked_inp / 1.60934, 3) 		#englisch mile = 1.60934 km
-            seemile = round(checked_inp / 1.852, 3)			#international seemile = 1.852 km
-            print(f"\n{checked_inp}km are {eng_mile} englisch miles or {seemile} international seemiles.")
-                  
-        case 3 :
-            beer = round(checked_inp * 0.33, 2)             #one beer has 330ml
-            complete_beer = int(beer // 1) 			
-            print(f"\n{checked_inp} liter are {beer} beers, roundet {complete_beer} complete 0,33l beer.") 
-                  
-        case 4 :
-            pound = round(checked_inp / 0.5, 2)				#Pound = 500g
-            print(f"\n{checked_inp}kg are {pound} pound.") 
-                  
-        case 5 :
-            kelvin = round(273.15 + checked_inp, 2) 		#Kelvin starts at -273.15°C. 273.15 Kelvin is equal to 0°C
-            print(f"\n{checked_inp}°C are {kelvin} Kelvin.")
-            
-        case _:
-            print("\ninvalid unit number. Muste be a single character number")
-            
-    
-              
-              
+'''
