@@ -20,9 +20,9 @@ def menu_check(menu_pos):
     while not check:
         us_input = input("Selection: ")
 
-        if len(us_input) == 1 and us_input.isdigit(): # prüfung, ob input einzelne Zahl ist
+        if len(us_input) == 1 and us_input.isdigit():   # prüfung, ob input einzelne Ganzzahl ist
 
-            if 1 <= int(us_input) <= menu_pos:
+            if 1 <= int(us_input) <= menu_pos:          # Prüft, ob die Eingabe einer Menüposition entspricht 
                 check = True
                 return us_input
             else:
@@ -36,10 +36,10 @@ def input_check():
 
     while not check:
         us_input = input(f"\nInput for conversion: ")
-        us_input = us_input.replace(",",".")
+        us_input = us_input.replace(",",".")            # Float akzeptiert nur ".", reduziert fehlerhafte Nutzereingaben
 
         try:
-            float(us_input)
+            float(us_input)                             # Versucht Eingabe in Float umzuwandeln
             check = True
         except ValueError:
             print("invalid input, try again\n")
@@ -47,8 +47,8 @@ def input_check():
     return us_input
 
 
-def calculator ():
-    op = operator_list[calc_index]
+def calculator ():                                      # Operator aus Liste kann nicht direkt in Formel eingesetzt werden
+    op = operator_list[calc_index]                      # Daher Funktion zur Berechnung benötigt
 
     match op:
         case "+" :
@@ -63,8 +63,8 @@ def calculator ():
     return result
      
 
-def valide_operator():
-        val_op = False
+def valide_operator():                                  # Prüft, ob der eingegebene Operator vom System verarbeitet werden kann
+        val_op = False                                  # Wenn nicht, wird eine neue Eingabe angefordert
         val_op_list = ["+", "-", "*", "/"]
 
         while not val_op:
@@ -75,8 +75,8 @@ def valide_operator():
             else:
                 print(f"{op} is not in allowed character list or to long")
 
-def add_summary(function_name, start_un, end_un, op, fac):
-    print("input summary: \n"
+def add_summary(function_name, start_un, end_un, op, fac):      # Zusammenfassung Nutzereingaben, für neue Rechenoperation
+    print("\nInput summary: \n"
             f"Function name:        {function_name}\n"
             f"1. Start unit:        {start_un}\n"
             f"2. End unit:          {end_un}\n"
@@ -84,16 +84,16 @@ def add_summary(function_name, start_un, end_un, op, fac):
             f"4. Conversion factor: {fac}\n"
             )
     
-def add_unit():
+def add_unit():                                                 # Funktion um neue Rechenoperationen zu erstellen
 
-    ready = False
-    val_confirm = False
+    ready = False                                               # definition Einschaltbedingung für Schleifen
     export_ready = False
+    val_corr = False
 
     while not ready:
         
         
-        start_un = input("\nbeginning unit:")
+        start_un = input("\nbeginning unit:")                   # Nutzereingaben für neue Rechenoperation
 
         end_un = input("\nending unit:")
 
@@ -104,7 +104,7 @@ def add_unit():
         fac = input_check()
 
 
-        while not export_ready:
+        while not export_ready:                                 # Nutzer überprüft seine Eingaben und muss sie bestätigen
             add_summary(function_name, start_un, end_un, op, fac)
 
                 
@@ -113,18 +113,18 @@ def add_unit():
             confirm = confirm.lower()
 
             if confirm == "y":
-                export_ready = True
+                export_ready = True                             # beendet Schleife "ready" und "export_ready"
                 ready = True
 
-            elif confirm == "n":
-                val_corr = False
 
-                while not val_corr :
+            elif confirm == "n":               
+
+                while not val_corr :                            # Nutzer kann Eingaben gezielt korrigieren
                     correct = input("what would you like to correct: ")
                         
                     if len(correct) == 1 and correct.isdigit(): # prüfung, ob input einzelne Zahl ist
                             
-                        if 0< int(correct) <= 4:
+                        if 0< int(correct) <= 4:                # Auswahl der zu korrigierenden Position
                                 
 
                             match correct:
@@ -142,16 +142,16 @@ def add_unit():
                                         fac = input_check()
 
 
-                            val_corr = True
+                            val_corr = True                     # beendet Schleife "val_corr"
 
                 else:
                     print("input invalid, try again\n")
 
 
-
+    # Setzt String für Export zusammen
     new_export = f'{{"name" : "{function_name}", "start_unit" : "{start_un}", "operator": "{op}", "faktor" : "{fac}", "end_unit" : "{end_un}"}}'
-    print(new_export)
 
+    # Exportiert File in Speicher 
     storage = open(FILE, "a")
     storage.write(new_export)
     storage.close()
@@ -219,10 +219,10 @@ while True:
 
     # Auswahl Menüfunktion
     valid_menu = int(menu_check(menu_count))
-    calc_index = valid_menu -1
+    calc_index = valid_menu -1      # Rechnet menüposition auf Listenindex um, bessere Code Lesbarkeit
     print(f"You choose '{name_list[calc_index]}'")
 
-    if 0<= valid_menu <= menu_count-2 :
+    if 0<= valid_menu <= menu_count-2 :     # Führt Umrechnung aus und gibt sie an Nutzer aus
         valid_input = float(input_check())
         calc = calculator()
 
